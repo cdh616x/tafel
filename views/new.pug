@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p Please craft your message below
+
+  form(action='/new', method='POST')
+    p
+      | username:
+      input(type='text', name='username', value='')
+      |          message:
+      input(type='text', name='message', value='')
+      |
+    input(type='submit', value='Submit')
