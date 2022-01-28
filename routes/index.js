@@ -15,10 +15,10 @@ const db = mongoose.connection;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  Message.find({}).exec((err, document) => {
+  message_list = Message.find({}).exec((err, document) => {
     if (err) console.log(err);
     console.log(document);
-  res.render("index", {title: "Messages", document: document});
+  res.render("index", {title: "Messages", message_list: document});
 });
 });
 
