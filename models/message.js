@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var MessageSchema = new Schema(
   {
     username: String,
-    message: String
+    message: String,
+    date: Number
   }
 );
 
@@ -13,7 +14,7 @@ var MessageSchema = new Schema(
 MessageSchema
 .virtual('url')
 .get(function () {
-  return '/catalog/book/' + this._id;
+  return '/' + this._id;
 });
 
 //Export model

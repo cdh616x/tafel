@@ -2,8 +2,16 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+
+  a(href="/new") New Message
+  hr
+  hr
 
   each document in message_list
-    li= document.username
-      p= document.message
+    div
+      li= document.username
+        p= document.message
+        p= document.date
+        p= document.url
+        a(href=document.url + "/delete") Delete Message
+        hr

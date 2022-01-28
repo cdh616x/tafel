@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const Message = require("../models/message.js");
 let results = require("../models/message.js");
 
-let message_list = require("../controllers/messageController.js");
+const async = require("async");
 
 mongoose.connect("mongodb+srv://cdhprof:Lyr1c%40%40%40@tafel-dev.goaul.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
@@ -17,18 +17,24 @@ const db = mongoose.connection;
 router.get('/', function(req, res, next) {
   message_list = Message.find({}).exec((err, document) => {
     if (err) console.log(err);
-    console.log(document);
   res.render("index", {title: "Messages", message_list: document});
 });
 });
 
-
+router.post("/", function(req, res, next) {
+  Message.deleteOne({_id: req.body.url}, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Success, Dragon!");
+    }
+    res.redirect("/");
+  });
+})
 
 router.get("/new", function(req, res, next) {
-  res.render("new", {title: "New Message", message_list: message_list});
+  res.render("new", {title: "New Message"});
 });
-
-
 
 router.post("/new", function(req, res, next) {
   console.log(req.body.username);
@@ -36,12 +42,32 @@ router.post("/new", function(req, res, next) {
 
   let message = new Message ({
     username: req.body.username,
-    message: req.body.message
+    message: req.body.message,
+    date: new Date().getFullYear()
   });
 
   message.save();
 
   res.redirect("/");
 });
+
+// Display book delete form on GET.-----------FIX THIS
+router.get("/:url/delete", function(req, res, next) {
+  delete_message = Message.findById(req.params.url);
+  console.log(req.params);
+  res.render("delete", {title: "Delete Message? --- " + delete_message});//-----MESSAGE.FINDBYID(PASS IN URL)
+});
+
+router.post("/:url/delete", function(req, res, next) {
+    Message.deleteOne({_id: req.body.url}, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Success, Baby!");
+      }
+      res.redirect("/");
+    });
+});
+
 
 module.exports = router;
