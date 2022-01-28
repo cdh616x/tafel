@@ -5,4 +5,5 @@ block content
   p Welcome to #{title}
 
   each document in message_list
-    li= document
+    li= document.username
+      p= document.message
