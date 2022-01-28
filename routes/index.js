@@ -23,6 +23,7 @@ router.get('/', function(req, res, next) {
 
 router.post("/", function(req, res, next) {
   Message.deleteOne({_id: req.body.url}, function(err) {
+    console.log(req.body.url);
     if (err) {
       console.log(err);
     } else {
@@ -59,7 +60,8 @@ router.get("/:url/delete", function(req, res, next) {
 });
 
 router.post("/:url/delete", function(req, res, next) {
-    Message.deleteOne({_id: req.body.url}, function(err) {
+    Message.deleteOne({_id: req.params.url}, function(err, results) {
+      console.log(results);
       if (err) {
         console.log(err);
       } else {
