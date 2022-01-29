@@ -8,9 +8,10 @@ block content
 
   form(action='/new', method='POST')
     p
-      | username:
+      | Username:
       input(type='text', name='username', value='')
-      |          message:
-      input(type='text', name='message', value='')
+    p
+      | Message:
+      input.message(type='text', name='message', value='', required)
       |
     input(type='submit', value='Submit')

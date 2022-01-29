@@ -5,4 +5,22 @@ body {
 
 a {
   color: #00B7FF;
+  text-decoration: none;
+  text-align: center;
+}
+
+h1, h5 {
+  text-align: center;
+}
+
+.delete {
+  text-align: right;
+}
+
+.delete:hover {
+  color: red;
+}
+
+.message {
+  width: 50%;
 }
