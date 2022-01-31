@@ -4,9 +4,9 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
 
-const Message = require("../models/message.js");
+const Message = require("../models/message.js");//qHYVkEDiZI7l5bTc
 
-mongoose.connect("mongodb+srv://cdhprof:Lyr1c%40%40%40@tafel-dev.goaul.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://public:qHYVkEDiZI7l5bTc@tafel-dev.goaul.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
