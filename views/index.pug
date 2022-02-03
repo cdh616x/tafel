@@ -13,7 +13,10 @@ block content
       li= document.username
         h2= document.message
         p= document.date
-        h3= document.comments
+        div
+          ul
+            each comment in document.comments
+              li= comment
         a.delete(href=document.url + "/delete") Delete Message
         p= "or"
         a(href=document.url + "/comment") Comment
