@@ -16,7 +16,8 @@ block content
         div
           ul
             each comment in document.comments
-              li= comment
+              li= comment.comment
+                a(href="/") Delete Comment//-------------------HAVE TO GET REQUEST A PARTICULAR COMMENT'S _ID AND DELETE
         a.delete(href=document.url + "/delete") Delete Message
         p= "or"
         a(href=document.url + "/comment") Comment
