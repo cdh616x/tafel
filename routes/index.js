@@ -16,6 +16,8 @@ router.get('/', function(req, res, next) {
 });
 });
 
+//---------NEW MESSAGE
+
 router.get("/new", function(req, res, next) {
   res.render("new", {title: "New Message"});
 });
@@ -29,6 +31,31 @@ router.post("/new", function(req, res, next) {
   message.save();
   res.redirect("/");
 });
+
+//--------COMMENT
+
+router.get("/:url/comment", function(req, res, next) {
+  // comment_message = Message.findById(req.params.url);
+  // console.log(comment_message);
+  res.render("comment", {title: "New Comment"});
+});
+
+router.post("/:url/comment", function(req, res, next) {
+  console.log("*");
+  console.log(req.body.username);
+  console.log(req.body.comment);
+  console.log("*");
+  Message.updateOne({_id: req.params.url}, {comments: {comment: req.body.comment}}, function(err, results) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(results);
+    }
+  });
+  res.redirect("/");
+});
+
+//---------DELETE
 
 router.get("/:url/delete", function(req, res, next) {
   delete_message = Message.findById(req.params.url);

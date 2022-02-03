@@ -6,7 +6,8 @@ var MessageSchema = new Schema(
   {
     username: String,
     message: String,
-    date: Number
+    date: Number,
+    comments: [{comment: String, username: String}]
   }
 );
 
