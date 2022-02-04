@@ -1,8 +1,10 @@
-var mongoose = require('mongoose');
+//jshint esversion:6
 
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var MessageSchema = new Schema(
+const Schema = mongoose.Schema;
+
+let MessageSchema = new Schema(
   {
     username: String,
     message: String,
@@ -11,7 +13,7 @@ var MessageSchema = new Schema(
   }
 );
 
-// Virtual for book's URL
+// Virtual for Message URL -------- MESSAGE URL = _ID
 MessageSchema
 .virtual('url')
 .get(function () {

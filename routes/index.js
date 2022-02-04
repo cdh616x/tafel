@@ -1,14 +1,14 @@
 //jshint esversion:6
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const mongoose = require("mongoose");
 
 const Message = require("../models/message.js");//qHYVkEDiZI7l5bTc
 
 mongoose.connect("mongodb+srv://public:qHYVkEDiZI7l5bTc@tafel-dev.goaul.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
-/* GET home page. */
+//---------HOMEPAGE
 router.get('/', function(req, res, next) {
   message_list = Message.find({}).sort({_id: -1}).exec((err, document) => {
     if (err) console.log(err);
@@ -39,11 +39,7 @@ router.get("/:url/comment", function(req, res, next) {
 });
 
 router.post("/:url/comment", function(req, res, next) {
-  // console.log("*");
-  // console.log(req.body.username);
-  // console.log(req.body.comment);
-  // console.log("*");
-  Message.updateOne({_id: req.params.url}, { $push: {comments: {comment: req.body.comment}}}, {upsert: true}, function(err, results) {
+  Message.updateOne({_id: req.params.url}, { $push: {comments: {comment: req.body.user_comment, username: req.body.username}}}, {upsert: true}, function(err, results) {
     if (err) {
       console.log(err);
     } else {
@@ -53,7 +49,13 @@ router.post("/:url/comment", function(req, res, next) {
   res.redirect("/");
 });
 
-//---------DELETE
+//-----------DELETE COMMENT
+
+// router.get(":url.comment._id/delete-comment", function(req, res, next) {-----HAVE TO GET EXACT ROUTE OF HREF OF DELETE-COMMENT.PUG AND ROUTE TO IT
+//   res.render("delete-comment", {title: "Delete Comment?"});
+// });
+
+//---------DELETE MESSAGE
 
 router.get("/:url/delete", function(req, res, next) {
   delete_message = Message.findById(req.params.url);
