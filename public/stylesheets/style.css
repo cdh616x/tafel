@@ -4,23 +4,25 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #FF865E;
   text-decoration: none;
   text-align: center;
+}
+
+a:hover {
+  color: #995038;
 }
 
 h1, h5 {
   text-align: center;
 }
 
-.delete {
-  text-align: right;
-}
-
-.delete:hover {
-  color: red;
-}
-
 .message {
   width: 50%;
+}
+
+.comment-section {
+  border-radius: 25px;
+  padding: 2%;
+  background-color: #A2D2FF;
 }
