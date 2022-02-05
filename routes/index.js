@@ -5,6 +5,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const Message = require("../models/message.js");//qHYVkEDiZI7l5bTc
+const Comment = require("../models/message.js");
 
 mongoose.connect("mongodb+srv://public:qHYVkEDiZI7l5bTc@tafel-dev.goaul.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
@@ -51,9 +52,21 @@ router.post("/:url/comment", function(req, res, next) {
 
 //-----------DELETE COMMENT
 
-// router.get(":url.comment._id/delete-comment", function(req, res, next) {-----HAVE TO GET EXACT ROUTE OF HREF OF DELETE-COMMENT.PUG AND ROUTE TO IT
-//   res.render("delete-comment", {title: "Delete Comment?"});
-// });
+router.get("/:comment_url/delete-comment", function(req, res, next) {//-----HAVE TO GET EXACT ROUTE OF HREF OF DELETE-COMMENT.PUG AND ROUTE TO IT
+  Message.find({_id: req.params.comment_url});
+  res.render("delete-comment", {title: "Delete Comment?"});
+ });
+
+router.post("/:comment_url/delete-comment", function (req, res, next) {
+  let newMessage = Message.updateOne({_id: req.params.url}, { $pop: {comments: {comment: req.params.comment_url}}}, function(err, results) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(results);
+    }
+  });
+  res.redirect("/");
+});
 
 //---------DELETE MESSAGE
 
