@@ -13,6 +13,7 @@ mongoose.connect("mongodb+srv://public:qHYVkEDiZI7l5bTc@tafel-dev.goaul.mongodb.
 router.get('/', function(req, res, next) {
   message_list = Message.find({}).sort({_id: -1}).exec((err, document) => {
     if (err) console.log(err);
+    console.log(document);
   res.render("index", {title: "Messages", message_list: document});
 });
 });
@@ -53,19 +54,24 @@ router.post("/:url/comment", function(req, res, next) {
 //-----------DELETE COMMENT
 
 router.get("/:comment_url/delete-comment", function(req, res, next) {//-----HAVE TO GET EXACT ROUTE OF HREF OF DELETE-COMMENT.PUG AND ROUTE TO IT
-  let del_comment = Comment.findById({_id: req.params.comment_url});
-  console.log("*");
-  console.log(del_comment);
-  console.log(req.params.comment_url);
-  res.render("delete-comment", {title: "Delete Comment?" + del_comment});
- });
-
-router.post("/:comment_url/delete-comment", function (req, res, next) {
-  Comment.deleteOne({_id: req.params.comment_url}, function(err, results) {//......., { $pull: {comments: {comment: req.params.comment_url}}},
+  x = Message.find({"comments._id": req.params.comment_url}, function(err, results) {
     if (err) {
       console.log(err);
     } else {
       console.log(results);
+    }
+  });
+  console.log("*");
+  res.render("delete-comment", {title: "Delete Comment?"});
+ });
+
+router.post("/:comment_url/delete-comment", function (req, res, next) {
+   Message.updateOne({"comments._id": req.params.comment_url}, { $pull: {comments: {_id: req.params.comment_url}}}, function(err, results) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(results);
+      console.log(req.params.comment_url);
     }
   });
   res.redirect("/");
@@ -74,8 +80,7 @@ router.post("/:comment_url/delete-comment", function (req, res, next) {
 //---------DELETE MESSAGE
 
 router.get("/:url/delete", function(req, res, next) {
-  delete_message = Message.findById(req.params.url);
-  res.render("delete", {title: "Delete Message? --- " + delete_message});// Display message delete form on GET
+  res.render("delete", {title: "Delete Message?"});
 });
 
 router.post("/:url/delete", function(req, res, next) {
@@ -83,7 +88,7 @@ router.post("/:url/delete", function(req, res, next) {
       if (err) {
         console.log(err);
       } else {
-        console.log("Success, Baby!");
+        console.log(results);
       }
       res.redirect("/");
     });
