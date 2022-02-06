@@ -20,6 +20,8 @@ block content
               p.comment-section= comment.comment
                 a(href=comment._id + "/delete-comment") Delete Comment
         a.delete(href=document.url + "/delete") Delete Message
-        p= "or"
-        a(href=document.url + "/comment") Add Comment
+        |
+        |
+        a.comment(href=document.url + "/comment") Add Comment
+
         hr
