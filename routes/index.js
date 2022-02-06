@@ -54,14 +54,6 @@ router.post("/:url/comment", function(req, res, next) {
 //-----------DELETE COMMENT
 
 router.get("/:comment_url/delete-comment", function(req, res, next) {//-----HAVE TO GET EXACT ROUTE OF HREF OF DELETE-COMMENT.PUG AND ROUTE TO IT
-  x = Message.find({"comments._id": req.params.comment_url}, function(err, results) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(results);
-    }
-  });
-  console.log("*");
   res.render("delete-comment", {title: "Delete Comment?"});
  });
 
@@ -71,7 +63,6 @@ router.post("/:comment_url/delete-comment", function (req, res, next) {
       console.log(err);
     } else {
       console.log(results);
-      console.log(req.params.comment_url);
     }
   });
   res.redirect("/");
