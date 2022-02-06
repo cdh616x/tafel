@@ -34,3 +34,7 @@ h1, h5 {
   padding: 2%;
   background-color: #A2D2FF;
 }
+
+.username {
+  font-style: italic;
+}
